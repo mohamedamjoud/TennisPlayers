@@ -1,0 +1,64 @@
+{
+  "players": [
+    {
+      "id": 1,
+      "firstname": "Roger",
+      "lastname": "Federer",
+      "shortname": "R.FED",
+      "sex": "M",
+      "picture": "https://example.com/federer.png",
+      "country": {
+        "picture": "https://example.com/switzerland.png",
+        "code": "SUI"
+      },
+      "data": {
+        "rank": 1,
+        "points": 9870,
+        "weight": 85000,
+        "height": 185,
+        "age": 39,
+        "last": [1, 1, 1, 1, 1]
+      }
+    },
+    {
+      "id": 2,
+      "firstname": "Rafael",
+      "lastname": "Nadal",
+      "shortname": "R.NAD",
+      "sex": "M",
+      "picture": "https://example.com/nadal.png",
+      "country": {
+        "picture": "https://example.com/spain.png",
+        "code": "ESP"
+      },
+      "data": {
+        "rank": 2,
+        "points": 9120,
+        "weight": 85000,
+        "height": 185,
+        "age": 36,
+        "last": [1, 1, 0, 1, 1]
+      }
+    },
+    {
+      "id": 3,
+      "firstname": "Novak",
+      "lastname": "Djokovic",
+      "shortname": "N.DJO",
+      "sex": "M",
+      "picture": "https://example.com/djokovic.png",
+      "country": {
+        "picture": "https://example.com/serbia.png",
+        "code": "SRB"
+      },
+      "data": {
+        "rank": 3,
+        "points": 8765,
+        "weight": 77000,
+        "height": 188,
+        "age": 37,
+        "last": [1, 0, 1, 1, 1]
+      }
+    }
+  ]
+}
