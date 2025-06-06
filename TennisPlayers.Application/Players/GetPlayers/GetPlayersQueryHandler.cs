@@ -5,11 +5,11 @@ namespace TennisPlayers.Application.Players.GetPlayers;
 
 public sealed class GetPlayersQueryHandler (IPlayerRepository playerRepository) : IRequestHandler<GetPlayersQuery, IReadOnlyCollection<PlayerResponse>>
 {
-    public async Task<IReadOnlyCollection<PlayerResponse>> Handle(GetPlayersQuery request, CancellationToken cancellationToken)
+    public Task<IReadOnlyCollection<PlayerResponse>> Handle(GetPlayersQuery request, CancellationToken cancellationToken)
     {
+        var response = playerRepository.GetPlayers();
         
-        var response = await playerRepository.GetPlayersAsync();
-        return SortPlayersBy(request.SortBy, response);
+        return Task.FromResult(SortPlayersBy(request.SortBy, response));
     }
 
     private IReadOnlyCollection<PlayerResponse> SortPlayersBy(PlayerSortBy sortBy,

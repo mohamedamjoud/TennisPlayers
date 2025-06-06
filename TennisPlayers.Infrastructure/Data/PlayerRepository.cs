@@ -6,22 +6,20 @@ namespace TennisPlayers.Infrastructure.Data;
 
 public class PlayerRepository : IPlayerRepository
 {
-    private readonly string _filePath;
-
+    private readonly IReadOnlyCollection<PlayerResponse> _players;
+    
     public PlayerRepository(IConfiguration configuration)
     {
-        _filePath = configuration["DataFiles:HeadToHead"]
+        var filePath = configuration["DataFiles:HeadToHead"]
                     ?? throw new InvalidOperationException("Missing configuration for HeadToHead file path.");
-    }
-    public async Task<IReadOnlyCollection<PlayerResponse>> GetPlayersAsync()
-    {
         
-        if (!File.Exists(_filePath))
-        {
-            throw new ApplicationException("The file 'HeadToHead.json' was not found.");
-        }
-        
-        var headToHeadPlayers = await JsonFileHelper<HeadToHeadFile>.ReadAsync(_filePath);
-        return headToHeadPlayers?.Players?.Select(HeadToHeadFile.ToPlayerResponse).ToList() ?? [];
+        var headToHead = JsonFileHelper<HeadToHeadFile>.ReadAsync(filePath).GetAwaiter().GetResult();
+        _players = headToHead?.Players?.Select(PlayerRaw.ToPlayerResponse).ToList() ?? [];
     }
+
+    public IReadOnlyCollection<PlayerResponse> GetPlayers() => _players;
+    
+    public PlayerResponse? GetPlayer(int playerId) => 
+        _players.SingleOrDefault(p => p.Id == playerId);
+  
 }

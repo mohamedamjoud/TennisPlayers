@@ -1,28 +1,35 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using TennisPlayer.IntegrationTests.Abstractions;
-using TennisPlayers.Application.Players.GetPlayers;
+using TennisPlayers.Application.Players.GetPlayer;
 
 namespace TennisPlayer.IntegrationTests;
 
-public class GetPlayerTestes : BaseIntegrationTest
+public class GetPlayerTests(IntegrationTestWebAppFactory factory) : BaseIntegrationTest(factory)
 {
-    public GetPlayerTestes(IntegrationTestWebAppFactory factory) 
-        : base(factory)
+    [Fact]
+    public async Task Should_ReturnPlayer_WhenIdExists()
     {
+        //Arrange
+        var query = new GetPlayerQuery (1);
+
+        //Act
+        var player = await Sender.Send(query);
+
+        //Assert
+        player.Should().NotBeNull();
+        player.Id.Should().Be(1);
     }
     
     [Fact]
-    public async Task Should_ReturnAllPlayers_SortedByRankAsc()
+    public async Task Should_ReturnNull_WhenIdNotExists()
     {
         //Arrange
-        var query = new GetPlayersQuery{SortBy = PlayerSortBy.Rank};
+        var query = new GetPlayerQuery (5);
 
         //Act
-        var players = await Sender.Send(query);
-        
+        var player = await Sender.Send(query);
+
         //Assert
-        players.Should().NotBeNull();
-        players.Should().HaveCountGreaterThan(1);
-        players.Should().BeInAscendingOrder(p => p.Rank);
+        player.Should().BeNull();
     }
-} 
+}

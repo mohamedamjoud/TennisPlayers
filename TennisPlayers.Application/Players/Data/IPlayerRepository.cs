@@ -4,5 +4,6 @@ namespace TennisPlayers.Application.Players.Data;
 
 public interface IPlayerRepository
 {
-    Task<IReadOnlyCollection<PlayerResponse>> GetPlayersAsync();
+    IReadOnlyCollection<PlayerResponse> GetPlayers();
+    PlayerResponse GetPlayer(int playerId);
 }

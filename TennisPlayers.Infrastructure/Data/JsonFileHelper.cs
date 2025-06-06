@@ -13,6 +13,7 @@ public static class JsonFileHelper <T> where T : class  {
         }
         catch (Exception ex)
         {
+            //ToDo : Improve about exception
             throw new ApplicationException("Error reading player file.", ex);
         }
     }
