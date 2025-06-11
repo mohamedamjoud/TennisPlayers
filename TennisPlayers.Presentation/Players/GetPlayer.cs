@@ -8,13 +8,13 @@ internal sealed class GetPlayer : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("player/{id}", async (int id, ISender sender) =>
+        app.MapGet("player/{id:int}", async (int id, ISender sender) =>
         {
             var player = await sender.Send(new GetPlayerQuery(id));
-            
-            return player is not null 
-                ? Results.Ok(player) 
-                : Results.NotFound();
+
+            return player is not null ? 
+                Results.Ok(player) : 
+                Results.NotFound();
         }).WithTags("Players");
     }
 }

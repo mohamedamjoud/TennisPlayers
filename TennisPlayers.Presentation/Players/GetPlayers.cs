@@ -10,10 +10,9 @@ internal sealed class GetPlayers : IEndpoint
     {
         app.MapGet("players", async (ISender sender) =>
         {
-            //ToDo : Use result pattern
             var players = await sender.Send(new GetPlayersQuery(SortBy: PlayerSortBy.Rank));
 
-            return players;
+            return Results.Ok(players);
         }).WithTags("Players");
     }
 }
