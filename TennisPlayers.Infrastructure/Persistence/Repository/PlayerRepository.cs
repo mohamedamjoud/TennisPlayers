@@ -3,8 +3,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TennisPlayers.Application.Players.Data;
 using TennisPlayers.Application.Players.GetPlayers;
+using TennisPlayers.Infrastructure.Configuration;
+using TennisPlayers.Infrastructure.Persistence.Helpers;
+using TennisPlayers.Infrastructure.Persistence.Models;
 
-namespace TennisPlayers.Infrastructure.Data;
+namespace TennisPlayers.Infrastructure.Persistence.Repository;
 
 public class PlayerRepository : IPlayerRepository
 {
@@ -29,8 +32,6 @@ public class PlayerRepository : IPlayerRepository
             return headToHead?.Players?.Select(PlayerRaw.ToPlayerResponse).ToList() ?? [];
         });
     }    
-    
-    
     
     public PlayerResponse? GetPlayer(int playerId) => 
         GetPlayers().SingleOrDefault(p => p.Id == playerId);

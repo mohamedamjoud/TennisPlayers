@@ -1,7 +1,7 @@
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
 
-namespace TennisPlayers.Infrastructure.Data;
+namespace TennisPlayers.Infrastructure.Persistence.Helpers;
 
 public static class JsonFileHelper <T> where T : class  {
 

@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 using TennisPlayers.Application.Players.GetPlayers;
 
-namespace TennisPlayers.Infrastructure.Data;
+namespace TennisPlayers.Infrastructure.Persistence.Models;
 
 public sealed record PlayerRaw(
     [property: JsonPropertyName("id")] int Id,

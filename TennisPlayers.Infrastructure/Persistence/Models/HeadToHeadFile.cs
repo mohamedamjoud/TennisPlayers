@@ -1,5 +1,4 @@
 using System.Text.Json.Serialization;
-using TennisPlayers.Application.Players.GetPlayers;
 
-namespace TennisPlayers.Infrastructure.Data;
+namespace TennisPlayers.Infrastructure.Persistence.Models;
 public record HeadToHeadFile([property: JsonPropertyName("players")] List<PlayerRaw> Players);

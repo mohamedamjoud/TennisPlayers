@@ -1,4 +1,4 @@
-namespace TennisPlayers.Infrastructure.Data;
+namespace TennisPlayers.Infrastructure.Configuration;
 
 public class DataFilesOptions
 {

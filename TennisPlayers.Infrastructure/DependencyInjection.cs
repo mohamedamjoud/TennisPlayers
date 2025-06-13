@@ -1,7 +1,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TennisPlayers.Application.Players.Data;
-using TennisPlayers.Infrastructure.Data;
+using TennisPlayers.Infrastructure.Configuration;
+using TennisPlayers.Infrastructure.Persistence.Repository;
 
 namespace TennisPlayers.Infrastructure;
 
@@ -14,6 +15,4 @@ public static class DependencyInjection
         services.AddSingleton<IPlayerRepository, PlayerRepository>();
         return services;
     }
-            
-    
 }

@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace TennisPlayers.Infrastructure.Data;
+namespace TennisPlayers.Infrastructure.Persistence.Models;
 
 public sealed record Country(
     [property: JsonPropertyName("picture")] string Picture,
