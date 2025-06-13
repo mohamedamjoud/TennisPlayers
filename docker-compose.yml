@@ -1,0 +1,19 @@
+﻿services:
+  tennis-player.presentation:
+    image: tennis-players.presentation
+    container_name: TennisPlayer.Api
+    build:
+      context: .
+      dockerfile: TennisPlayers.Presentation/Dockerfile
+    ports:
+      - 5032:8080
+      - 7122:8081
+  
+  tennis-player.seq:
+    image: datalust/seq:latest
+    container_name: TennisPlayer.Seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 5341:5341
+      - 8081:80
