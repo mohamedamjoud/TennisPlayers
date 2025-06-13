@@ -1,10 +1,11 @@
 using System.Text.Json;
+using Microsoft.Extensions.Logging;
 
 namespace TennisPlayers.Infrastructure.Data;
 
 public static class JsonFileHelper <T> where T : class  {
 
-    public static async Task<T?> ReadAsync(string filePath)
+    public static async Task<T?> TryReadAsync(string filePath, ILogger logger)
     {
         try
         {
@@ -13,8 +14,8 @@ public static class JsonFileHelper <T> where T : class  {
         }
         catch (Exception ex)
         {
-            //ToDo : Improve about exception
-            throw new ApplicationException("Error reading player file.", ex);
+            logger.LogError(ex, "Error reading file {filePath}", filePath);
+            throw;
         }
     }
 }
