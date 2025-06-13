@@ -18,9 +18,9 @@ public class GetPlayerStatistics(IntegrationTestWebAppFactory factory) : BaseInt
     var statistics = await Sender.Send(query);
     
     //Assert
-    statistics.Should().NotBeNull();
-    statistics.CountryWithHighestWinRatio.Should().Be("SUI");
-    statistics.AverageBmi.Should().BeApproximately(23.82, 0.01);
-    statistics.MedianHeight.Should().Be(185);
+    statistics.IsSuccess.Should().BeTrue();
+    statistics.Value.CountryWithHighestWinRatio.Should().Be("SUI");
+    statistics.Value.AverageBmi.Should().BeApproximately(23.82, 0.01);
+    statistics.Value.MedianHeight.Should().Be(185);
   }
 }

@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using TennisPlayers.Domain;
+using TennisPlayers.Domain.Player;
 
 namespace TennisPlayer.UnitTests;
 

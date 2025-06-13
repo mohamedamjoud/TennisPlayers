@@ -1,8 +1,7 @@
-namespace TennisPlayers.Domain;
+namespace TennisPlayers.Domain.Player;
 
 public static class PlayerStatisticsCalculator
 {
-    
     private static double ConvertCmToMetre(int heightInCentimetres) => heightInCentimetres / 100.0;
     private static double ConvertGrammeToKg(int weightInGramme) => weightInGramme / 1000.0;
     

@@ -1,13 +1,17 @@
 using MediatR;
+using TennisPlayers.Application.Common;
 using TennisPlayers.Application.Players.Data;
 using TennisPlayers.Application.Players.GetPlayers;
 using TennisPlayers.Domain;
+using TennisPlayers.Domain.Common.Error;
+using TennisPlayers.Domain.Player;
 
 namespace TennisPlayers.Application.Players.GetPlayersStatistics;
 
-public sealed class GetPlayersStatisticsQueryHandler (IPlayerRepository playerRepository) : IRequestHandler<GetPlayersStatisticsQuery, PlayersStatisticsResponse>
+public sealed class GetPlayersStatisticsQueryHandler (IPlayerRepository playerRepository) 
+    : IQueryHandler<GetPlayersStatisticsQuery, PlayersStatisticsResponse>
 {
-    public Task<PlayersStatisticsResponse> Handle(GetPlayersStatisticsQuery request, CancellationToken cancellationToken)
+    public Task<Result<PlayersStatisticsResponse>> Handle(GetPlayersStatisticsQuery request, CancellationToken cancellationToken)
     {
         var players = playerRepository.GetPlayers();
 
@@ -26,6 +30,6 @@ public sealed class GetPlayersStatisticsQueryHandler (IPlayerRepository playerRe
         var orderedHeights = players.Select(p => p.Height).OrderBy(h => h).ToList();
         var medianHeight = PlayerStatisticsCalculator.CalculateMedianHeight(orderedHeights);
         
-        return Task.FromResult(new PlayersStatisticsResponse(countryWithHighestWinRatio, averageBmi, medianHeight));
+        return Task.FromResult<Result<PlayersStatisticsResponse>>(new PlayersStatisticsResponse(countryWithHighestWinRatio, averageBmi, medianHeight));
     }
 }

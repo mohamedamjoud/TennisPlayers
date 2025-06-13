@@ -1,6 +1,8 @@
 using MediatR;
 using TennisPlayers.Application.Players.GetPlayers;
+using TennisPlayers.Domain.Common.Error;
 using TennisPlayers.Presentation.Abstractions;
+using TennisPlayers.Presentation.Common.Results;
 
 namespace TennisPlayers.Presentation.Players;
 
@@ -10,9 +12,9 @@ internal sealed class GetPlayers : IEndpoint
     {
         app.MapGet("players", async (ISender sender) =>
         {
-            var players = await sender.Send(new GetPlayersQuery(SortBy: PlayerSortBy.Rank));
+            Result<IReadOnlyCollection<PlayerResponse>> result = await sender.Send(new GetPlayersQuery(SortBy: PlayerSortBy.Rank));
 
-            return Results.Ok(players);
+            return result.Match(Results.Ok, ApiResults.Problem);
         }).WithTags("Players");
     }
 }

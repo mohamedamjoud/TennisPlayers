@@ -16,8 +16,8 @@ public class GetPlayersTests(IntegrationTestWebAppFactory factory) : BaseIntegra
         var players = await Sender.Send(query);
         
         //Assert
-        players.Should().NotBeNull();
-        players.Should().HaveCountGreaterThan(1);
-        players.Should().BeInAscendingOrder(p => p.Rank);
+        players.IsSuccess.Should().BeTrue();
+        players.Value.Should().HaveCountGreaterThan(1);
+        players.Value.Should().BeInAscendingOrder(p => p.Rank);
     }
 } 

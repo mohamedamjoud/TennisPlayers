@@ -1,19 +1,24 @@
 using MediatR;
+using TennisPlayers.Application.Common;
 using TennisPlayers.Application.Players.Data;
+using TennisPlayers.Domain.Common.Error;
 
 namespace TennisPlayers.Application.Players.GetPlayers;
 
-public sealed class GetPlayersQueryHandler (IPlayerRepository playerRepository) : IRequestHandler<GetPlayersQuery, IReadOnlyCollection<PlayerResponse>>
+public sealed class GetPlayersQueryHandler (IPlayerRepository playerRepository) 
+    : IQueryHandler<GetPlayersQuery, IReadOnlyCollection<PlayerResponse>>
 {
-    public Task<IReadOnlyCollection<PlayerResponse>> Handle(GetPlayersQuery request, CancellationToken cancellationToken)
+    public Task<Result<IReadOnlyCollection<PlayerResponse>>> Handle(
+        GetPlayersQuery request, 
+        CancellationToken cancellationToken)
     {
-        var response = playerRepository.GetPlayers();
+        IReadOnlyCollection<PlayerResponse> response = playerRepository.GetPlayers();
         
-        return Task.FromResult(SortPlayersBy(request.SortBy, response));
+        return Task.FromResult<Result<IReadOnlyCollection<PlayerResponse>>>(response.ToList());
     }
 
     private IReadOnlyCollection<PlayerResponse> SortPlayersBy(PlayerSortBy sortBy,
-        IReadOnlyCollection<PlayerResponse> players) =>
+         IReadOnlyCollection<PlayerResponse> players) =>
         sortBy switch
         {
             PlayerSortBy.Rank => players.OrderBy(p=>p.Rank).ToList(),

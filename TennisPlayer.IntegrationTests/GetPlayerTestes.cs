@@ -1,6 +1,7 @@
 using FluentAssertions;
 using TennisPlayer.IntegrationTests.Abstractions;
 using TennisPlayers.Application.Players.GetPlayer;
+using TennisPlayers.Domain.Player;
 
 namespace TennisPlayer.IntegrationTests;
 
@@ -16,8 +17,9 @@ public class GetPlayerTests(IntegrationTestWebAppFactory factory) : BaseIntegrat
         var player = await Sender.Send(query);
 
         //Assert
-        player.Should().NotBeNull();
-        player.Id.Should().Be(1);
+        player.IsSuccess.Should().BeTrue();
+        player.Value.Should().NotBeNull();
+        player.Value.Id.Should().Be(1);
     }
     
     [Fact]
@@ -30,6 +32,7 @@ public class GetPlayerTests(IntegrationTestWebAppFactory factory) : BaseIntegrat
         var player = await Sender.Send(query);
 
         //Assert
-        player.Should().BeNull();
+        player.Error.Should().Be(PlayerErrors.NotFound(5));
+        player.IsFailure.Should().BeTrue();
     }
 }
