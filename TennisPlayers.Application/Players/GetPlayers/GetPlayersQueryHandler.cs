@@ -1,4 +1,3 @@
-using MediatR;
 using TennisPlayers.Application.Common;
 using TennisPlayers.Application.Players.Data;
 using TennisPlayers.Domain.Common.Error;
@@ -12,13 +11,15 @@ public sealed class GetPlayersQueryHandler (IPlayerRepository playerRepository)
         GetPlayersQuery request, 
         CancellationToken cancellationToken)
     {
-        IReadOnlyCollection<PlayerResponse> response = playerRepository.GetPlayers();
+        IReadOnlyCollection<PlayerResponse> response = playerRepository.GetPlayers().SortPlayersBy(request.SortBy);
         
         return Task.FromResult<Result<IReadOnlyCollection<PlayerResponse>>>(response.ToList());
     }
+}
 
-    private IReadOnlyCollection<PlayerResponse> SortPlayersBy(PlayerSortBy sortBy,
-         IReadOnlyCollection<PlayerResponse> players) =>
+public static class PlayerResponseExtensions
+{
+    public static IReadOnlyCollection<PlayerResponse> SortPlayersBy(this IReadOnlyCollection<PlayerResponse> players, PlayerSortBy sortBy) =>
         sortBy switch
         {
             PlayerSortBy.Rank => players.OrderBy(p=>p.Rank).ToList(),
