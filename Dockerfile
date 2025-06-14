@@ -9,8 +9,8 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["TennisPlayers.Presentation/TennisPlayers.Presentation.csproj", "TennisPlayers.Presentation/"]
 COPY ["TennisPlayers.Infrastructure/TennisPlayers.Infrastructure.csproj","TennisPlayers.Infrastructure/"]
-COPY ["TennisPlayers.Domain/TennisPlayers.Domain.csproj","TennisPlayers.Domain/"]
 COPY ["TennisPlayers.Application/TennisPlayers.Application.csproj","TennisPlayers.Application/"]
+COPY ["TennisPlayers.Domain/TennisPlayers.Domain.csproj","TennisPlayers.Domain/"]
 RUN dotnet restore "TennisPlayers.Presentation/TennisPlayers.Presentation.csproj"
 COPY . .
 WORKDIR "/src/TennisPlayers.Presentation"
