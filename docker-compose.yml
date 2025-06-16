@@ -4,11 +4,10 @@
     container_name: TennisPlayer.Api
     build:
       context: .
-      dockerfile: TennisPlayers.Presentation/Dockerfile
+      dockerfile: Dockerfile
     ports:
       - 5032:8080
-      - 7122:8081
-  
+      
   tennis-player.seq:
     image: datalust/seq:latest
     container_name: TennisPlayer.Seq
